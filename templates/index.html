@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<title>TaskFlow</title>
+<style>
+body{font-family:Arial;margin:40px;background:#f4f6f9}
+.container{max-width:800px;margin:auto;background:white;padding:20px;border-radius:8px}
+input,select,button{padding:8px;margin:4px}
+table{width:100%;border-collapse:collapse}
+td,th{border-bottom:1px solid #ddd;padding:8px}
+.done{text-decoration:line-through;color:gray}
+</style>
+</head>
+<body><div class="container">
+<h2>TaskFlow - Smart Task Management</h2>
+<form action="/add" method="post">
+<input name="title" placeholder="Task title" required>
+<select name="priority">
+<option>High</option><option selected>Medium</option><option>Low</option>
+</select>
+<button>Add</button>
+</form>
+<table>
+<tr><th>Task</th><th>Priority</th><th>Status</th><th>Actions</th></tr>
+{% for t in tasks %}
+<tr>
+<td class="{{'done' if t.done}}">{{t.title}}</td>
+<td>{{t.priority}}</td>
+<td>{{'Done' if t.done else 'Pending'}}</td>
+<td><a href="/toggle/{{loop.index0}}">Toggle</a> | <a href="/delete/{{loop.index0}}">Delete</a></td>
+</tr>
+{% endfor %}
+</table>
+</div></body></html>
